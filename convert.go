@@ -3,7 +3,7 @@ package main
 import (
 	"container/list"
 	"fmt"
-	"github.com/cekys/gopkg"
+	"localhost/vivycore"
 	"os"
 	"os/exec"
 	"reflect"
@@ -51,7 +51,7 @@ func convert2mp4(fileList *list.List, mode int) error {
 
 	for i := 0; i < fileList.Len(); i++ {
 		inputFile := listNode.Value.(string)
-		outputFile := gopkg.StringTrimSuffix(inputFile) + ".mp4"
+		outputFile := vivycore.StringTrimSuffix(inputFile) + ".mp4"
 		chosen, _, recvOk := reflect.Select(selectCase)
 
 		if recvOk {
@@ -67,8 +67,8 @@ func convert2mp4(fileList *list.List, mode int) error {
 }
 
 func runit(inputFile string, outputFile string, mode int, ch chan string) error {
-	cmd := exec.Command(encoders[0], "-i", inputFile, "-codec", "copy", outputFile)
-	err := gopkg.ProgramRealtimeOutput(cmd)
+	cmd := exec.Command(encoders[0], "-i", inputFile, "-codec", "copy", "-map", "0", outputFile)
+	err := vivycore.ProgramRealtimeOutput(cmd)
 	if err != nil {
 		return err
 	}

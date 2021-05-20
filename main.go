@@ -3,7 +3,7 @@ package main
 import (
 	"container/list"
 	"flag"
-	"github.com/cekys/gopkg"
+	"localhost/vivycore"
 	"log"
 	"os"
 	"path/filepath"
@@ -11,7 +11,7 @@ import (
 
 var (
 	encoders       = []string{"ffmpeg"}
-	extensions     = []string{".flv", ".ts", ".m3u8"}
+	extensions     = []string{".flv", ".ts", ".m3u8", ".mkv", "m2ts"}
 	workingPath, _ = os.Getwd()
 	sub            = false
 )
@@ -24,7 +24,7 @@ func main() {
 
 	// 检查编码器是否存在
 	for i, encoder := range encoders {
-		encoder, err := gopkg.ProgramExist(encoder)
+		encoder, err := vivycore.ProgramExist(encoder)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -35,7 +35,7 @@ func main() {
 	filter := make([]string, 0)
 
 	//Find all files in working path
-	err := gopkg.PathWalk(workingPath, fileList, filter, sub)
+	err := vivycore.PathWalk(workingPath, fileList, filter, sub)
 	if err != nil {
 		log.Fatal(err)
 	}

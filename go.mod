@@ -1,5 +1,7 @@
-module any2mp4
+module v2mp4
 
-go 1.15
+go 1.16
 
-require github.com/cekys/gopkg v0.0.10
+require localhost/vivycore v0.1.0
+
+replace localhost/vivycore => ../vivycore
